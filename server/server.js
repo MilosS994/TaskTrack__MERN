@@ -9,6 +9,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/tasks", tasksRouter);
+
 app.get("/", (req, res) => {
   res.send("This server is running!");
 });
