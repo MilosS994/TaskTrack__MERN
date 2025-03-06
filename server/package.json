@@ -17,5 +17,16 @@
   ],
   "author": "Milos Srejic",
   "license": "ISC",
-  "description": "TaskTrack is a task management application built using the MERN stack (MongoDB, Express.js, React, and Node.js)."
+  "description": "TaskTrack is a task management application built using the MERN stack (MongoDB, Express.js, React, and Node.js).",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.14.2",
+    "mongoose": "^8.12.1"
+  }
 }
