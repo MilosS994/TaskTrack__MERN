@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "tasks",
+    "management",
+    "rest",
+    "mongodb",
+    "express",
+    "nodejs"
+  ],
+  "author": "Milos Srejic",
+  "license": "ISC",
+  "description": "TaskTrack is a task management application built using the MERN stack (MongoDB, Express.js, React, and Node.js)."
+}
