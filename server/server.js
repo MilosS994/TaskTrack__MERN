@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import connectDB from "./src/database/mongodb.js";
 import { PORT } from "./src/config/env.js";
 
@@ -6,6 +7,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("This server is running!");
