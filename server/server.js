@@ -4,6 +4,9 @@ import { PORT } from "./src/config/env.js";
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.get("/", (req, res) => {
   res.send("This server is running!");
 });
