@@ -88,4 +88,14 @@ export const loginUser = async (req, res, next) => {
 };
 
 // LOGOUT
-export const logoutUser = async (req, res, next) => {};
+export const logoutUser = async (req, res, next) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+  res.status(200).json({
+    success: true,
+    message: "User signed out successfully",
+  });
+};
