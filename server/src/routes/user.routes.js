@@ -21,3 +21,5 @@ userRouter.put("/:id", async (req, res) => {
 userRouter.delete("/:id", async (req, res) => {
   res.send("DELETE user");
 });
+
+export default userRouter;
