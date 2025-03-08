@@ -55,7 +55,7 @@ export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");
 
     // Check if user does not have an account
     if (!user) {
