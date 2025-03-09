@@ -62,3 +62,45 @@ export const createUserTask = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updateUserTask = async (req, res, next) => {
+  const { id } = req.params;
+  const { title, description, dueDate, priority } = req.body;
+
+  try {
+    const task = await Task.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+        dueDate,
+        priority,
+      },
+      { new: true }
+    );
+
+    // If there is no task
+    if (!task) {
+      const error = new Error("Task not found");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    //   If the title is removed
+    if (!title) {
+      const error = new Error("Title is required");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Task successfully updated",
+        data: task,
+      });
+  } catch (error) {
+    next(error);
+  }
+};
