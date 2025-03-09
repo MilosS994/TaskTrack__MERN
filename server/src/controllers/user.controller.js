@@ -51,3 +51,28 @@ export const updateUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const createUser = async (req, res, next) => {
+  const { username, password, email } = req.body;
+
+  try {
+    // If there is already a user with the same email or username
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    if (!existingUser) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Username or email already taken" });
+    }
+
+    // Create new user
+    const newUser = await User.create({ username, password, email });
+
+    res.status(201).json({
+      success: true,
+      message: "User created successfully",
+      data: newUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
