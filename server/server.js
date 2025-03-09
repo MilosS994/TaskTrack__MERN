@@ -8,12 +8,14 @@ import userRouter from "./src/routes/user.routes.js";
 import tasksRouter from "./src/routes/tasks.routes.js";
 
 import errorMiddleware from "./src/middleware/error.middleware.js";
+import { arcjetMiddleware } from "./src/middleware/arcjet.middleware.js";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(arcjetMiddleware);
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
