@@ -57,15 +57,15 @@ export const loginUser = async (req, res, next) => {
 
     const user = await User.findOne({ email }).select("+password");
 
-    // Check if user does not have an account
+    // If user does not exist
     if (!user) {
-      const error = new Error("User does not exist");
+      const error = new Error("User not found");
       error.statusCode = 404;
       throw error;
     }
 
-    // Check if password is wrong
     const isPasswordValid = await bcrypt.compare(password, user.password);
+
     if (!isPasswordValid) {
       const error = new Error("Invalid password");
       error.statusCode = 401;
@@ -76,13 +76,14 @@ export const loginUser = async (req, res, next) => {
       expiresIn: JWT_EXPIRES_IN,
     });
 
+    const { password: _, ...userWithoutPassword } = user.toObject();
+
     res.status(200).json({
       success: true,
       message: "User signed in successfully",
-      data: { token, user },
+      data: { token, userWithoutPassword },
     });
   } catch (error) {
-    console.error(error);
     next(error);
   }
 };
