@@ -37,7 +37,7 @@ export const createUserTask = async (req, res, next) => {
   const { title, description, dueDate, priority } = req.body;
 
   //   If there is no title
-  if (!title) {
+  if (!title || title.trim() === "") {
     const error = new Error("Title is required");
     error.statusCode = 400;
     throw error;
@@ -68,8 +68,8 @@ export const updateUserTask = async (req, res, next) => {
   const { title, description, dueDate, priority } = req.body;
 
   try {
-    const task = await Task.findByIdAndUpdate(
-      id,
+    const task = await Task.findOneAndUpdate(
+      { _id: id, author: req.user._id },
       {
         title,
         description,
@@ -87,19 +87,40 @@ export const updateUserTask = async (req, res, next) => {
     }
 
     //   If the title is removed
-    if (!title) {
+    if (!title || title.trim() === "") {
       const error = new Error("Title is required");
       error.statusCode = 400;
       throw error;
     }
 
+    res.status(200).json({
+      success: true,
+      message: "Task updated successfully",
+      data: task,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteUserTask = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const task = await Task.findOneAndDelete({
+      _id: id,
+      author: req.user._id,
+    });
+
+    if (!task) {
+      const error = new Error("Task not found");
+      error.statusCode = 404;
+      throw error;
+    }
+
     res
       .status(200)
-      .json({
-        success: true,
-        message: "Task successfully updated",
-        data: task,
-      });
+      .json({ success: true, message: "Task deleted successfully" });
   } catch (error) {
     next(error);
   }
