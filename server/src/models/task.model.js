@@ -11,6 +11,7 @@ const taskSchema = mongoose.Schema(
     description: {
       type: String,
       trim: true,
+      default: "No description",
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
@@ -21,6 +22,10 @@ const taskSchema = mongoose.Schema(
       type: String,
       enum: ["pending", "in progress", "completed"],
       default: "pending",
+    },
+    dueDate: {
+      type: Date,
+      required: false,
     },
     priority: {
       type: String,
