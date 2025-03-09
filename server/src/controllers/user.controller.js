@@ -77,4 +77,24 @@ export const createUser = async (req, res, next) => {
   }
 };
 
-export const deleteUser = async (req, res, next) => {};
+export const deleteUser = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findByIdAndDelete(id);
+
+    // If user does not exist
+    if (!user) {
+      const error = new Error("User not found");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
