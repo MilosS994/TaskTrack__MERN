@@ -58,7 +58,7 @@ export const createUser = async (req, res, next) => {
   try {
     // If there is already a user with the same email or username
     const existingUser = await User.findOne({ $or: [{ username }, { email }] });
-    if (!existingUser) {
+    if (existingUser) {
       return res
         .status(400)
         .json({ success: false, message: "Username or email already taken" });
@@ -76,3 +76,5 @@ export const createUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteUser = async (req, res, next) => {};
