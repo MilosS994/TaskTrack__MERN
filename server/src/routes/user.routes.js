@@ -4,6 +4,7 @@ import {
   getUser,
   updateUser,
   createUser,
+  deleteUser,
 } from "../controllers/user.controller.js";
 import { authorize } from "../middleware/auth.middleware.js";
 
@@ -17,8 +18,6 @@ userRouter.post("/", createUser);
 
 userRouter.put("/:id", updateUser);
 
-userRouter.delete("/:id", async (req, res) => {
-  res.send("DELETE user");
-});
+userRouter.delete("/:id", deleteUser);
 
 export default userRouter;
