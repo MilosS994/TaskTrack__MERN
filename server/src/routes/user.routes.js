@@ -3,6 +3,7 @@ import {
   getUsers,
   getUser,
   updateUser,
+  createUser,
 } from "../controllers/user.controller.js";
 import { authorize } from "../middleware/auth.middleware.js";
 
@@ -12,9 +13,7 @@ userRouter.get("/", getUsers);
 
 userRouter.get("/:id", authorize, getUser);
 
-userRouter.post("/", async (req, res) => {
-  res.send("POST new user");
-});
+userRouter.post("/", createUser);
 
 userRouter.put("/:id", updateUser);
 
